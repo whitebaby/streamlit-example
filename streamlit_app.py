@@ -69,47 +69,5 @@ data2 = df2.tail(50)
 # print(data2)
 
 st.bar_chart(data2)
-# time.sleep(10)
+time.sleep(60)
 st.experimental_rerun()
-st.dataframe(df1, width=1200, height=500)
-
-
-from datetime import datetime
-
-def stamp2time(timestamp): #时间戳转日期函数
-
-    time_local = time.localtime(timestamp/1000)
-
-    dt = time.strftime("%Y-%m-%d", time_local)
-
-    return dt
-def convert_currency(value):
-    new_value = np.float(value.replace(',', '').replace('￥', ''))
-	# print(new_value)
-    return new_value
-
-
-r2 = requests.get(url="https://api.anchorprotocol.com/api/v1/deposit/1d", headers=header, cookies=cookie)
-rToJson2 = r2.json()
-rData2= rToJson2['total_ust_deposits']
-
-
-df2=pd.DataFrame(rData2)
-
-st.write("")
-df2[['deposit']] = df2[['deposit']].astype('float')
-df2['deposit'] = df2['deposit'].div(10000*10000*10)
-df2["timestamp"]=df2["timestamp"].apply(stamp2time)
-
-df2.set_index(['timestamp'],inplace=True)
-df2 = df2.sort_index()
-data2 = df2.tail(50)
-# print(data2)
-st.header("Deposit USD Amount Live Data ")
-st.bar_chart(data2)
-# time.sleep(10)
-# st.experimental_rerun()
-st.experimental_rerun()
-
-
-
