@@ -69,5 +69,22 @@ data2 = df2.tail(50)
 # print(data2)
 
 st.bar_chart(data2)
+
+r_apy = requests.get(url="https://apiv2.coindix.com/search?sort=-base&kind=stable", headers=header, cookies=cookie)
+rToJson_apy = r_apy.json()
+rData_apy= rToJson_apy['data']
+
+
+# import pandas as pd
+
+df_apy=pd.DataFrame(rData_apy)
+# print(df_apy)
+# df_apy.drop(['icon', 'rewards'], inplace=True)
+df_apy.drop(['icon', 'rewards','base','reward','link',"is_new","watched",'id'], axis=1, inplace=True) 
+df_apy['apy']=df_apy['apy'].map(lambda x :'%.2f%%'  %  (x*100),)
+df_apy['apy_7_day']=df_apy['apy_7_day'].map(lambda x :'%.2f%%'  %  (x*100),)
+st.dataframe(df_apy, width=1200, height=500)
+
+
 time.sleep(60)
 st.experimental_rerun()
