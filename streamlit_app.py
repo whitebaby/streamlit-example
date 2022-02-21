@@ -65,7 +65,8 @@ df2["timestamp"]=df2["timestamp"].apply(stamp2time)
 
 df2.set_index(['timestamp'],inplace=True)
 df2 = df2.sort_index()
-data2 = df2.tail(50)
+# data2 = df2.tail(50)
+data2 = df2[-50:-2]
 # print(data2)
 
 st.bar_chart(data2)
@@ -77,6 +78,8 @@ rData_apy= rToJson_apy['data']
 
 # import pandas as pd
 
+st.write("")
+st.header("Platform revenue source")
 df_apy=pd.DataFrame(rData_apy)
 # print(df_apy)
 # df_apy.drop(['icon', 'rewards'], inplace=True)
