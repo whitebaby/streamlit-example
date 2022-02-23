@@ -16,7 +16,7 @@ cookie = {
 	"HMACCOUNT": "BA4C08D999D27E4E"
 }
 
-r = requests.get(url="https://www.ouyicn.gift/priapi/v5/rubik/web/public/spread-arbitrage?t=1645165565597&ctType=linear&arbitrageType=futures_spot", headers=header, cookies=cookie)
+r = requests.get(url="https://www.okx.com/priapi/v5/rubik/web/public/spread-arbitrage?t=1645165565597&ctType=linear&arbitrageType=futures_spot", headers=header, cookies=cookie)
 rToJson = r.json()
 rData= rToJson['data']
 
@@ -66,7 +66,7 @@ df2["timestamp"]=df2["timestamp"].apply(stamp2time)
 df2.set_index(['timestamp'],inplace=True)
 df2 = df2.sort_index()
 # data2 = df2.tail(50)
-data2 = df2[-50:-2]
+data2 = df2[-50:-3]
 # print(data2)
 
 st.bar_chart(data2)
