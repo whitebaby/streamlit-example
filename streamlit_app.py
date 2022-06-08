@@ -50,43 +50,43 @@ def convert_currency(value):
     return new_value
 
 
-r2 = requests.get(url="https://api.anchorprotocol.com/api/v1/deposit/1d", headers=header, cookies=cookie)
-rToJson2 = r2.json()
-rData2= rToJson2['total_ust_deposits']
+# r2 = requests.get(url="https://api.anchorprotocol.com/api/v1/deposit/1d", headers=header, cookies=cookie)
+# rToJson2 = r2.json()
+# rData2= rToJson2['total_ust_deposits']
 
 
-df2=pd.DataFrame(rData2)
+# df2=pd.DataFrame(rData2)
 
-st.write("")
-st.header("Deposit USD Amount Live Data ")
-df2[['deposit']] = df2[['deposit']].astype('float')
-df2['deposit'] = df2['deposit'].div(10000*10000*10)
-df2["timestamp"]=df2["timestamp"].apply(stamp2time)
+# st.write("")
+# st.header("Deposit USD Amount Live Data ")
+# df2[['deposit']] = df2[['deposit']].astype('float')
+# df2['deposit'] = df2['deposit'].div(10000*10000*10)
+# df2["timestamp"]=df2["timestamp"].apply(stamp2time)
 
-df2.set_index(['timestamp'],inplace=True)
-df2 = df2.sort_index()
-# data2 = df2.tail(50)
-data2 = df2[-50:-3]
-# print(data2)
+# df2.set_index(['timestamp'],inplace=True)
+# df2 = df2.sort_index()
+# # data2 = df2.tail(50)
+# data2 = df2[-50:-3]
+# # print(data2)
 
-st.bar_chart(data2)
+# st.bar_chart(data2)
 
-r_apy = requests.get(url="https://apiv2.coindix.com/search?sort=-base&kind=stable", headers=header, cookies=cookie)
-rToJson_apy = r_apy.json()
-rData_apy= rToJson_apy['data']
+# r_apy = requests.get(url="https://apiv2.coindix.com/search?sort=-base&kind=stable", headers=header, cookies=cookie)
+# rToJson_apy = r_apy.json()
+# rData_apy= rToJson_apy['data']
 
 
 # import pandas as pd
 
-st.write("")
-st.header("Platform revenue source")
-df_apy=pd.DataFrame(rData_apy)
-# print(df_apy)
-# df_apy.drop(['icon', 'rewards'], inplace=True)
-df_apy.drop(['icon', 'rewards','base','reward','link',"is_new","watched",'id'], axis=1, inplace=True) 
-df_apy['apy']=df_apy['apy'].map(lambda x :'%.2f%%'  %  (x*100),)
-df_apy['apy_7_day']=df_apy['apy_7_day'].map(lambda x :'%.2f%%'  %  (x*100),)
-st.dataframe(df_apy, width=1200, height=500)
+# st.write("")
+# st.header("Platform revenue source")
+# df_apy=pd.DataFrame(rData_apy)
+# # print(df_apy)
+# # df_apy.drop(['icon', 'rewards'], inplace=True)
+# df_apy.drop(['icon', 'rewards','base','reward','link',"is_new","watched",'id'], axis=1, inplace=True) 
+# df_apy['apy']=df_apy['apy'].map(lambda x :'%.2f%%'  %  (x*100),)
+# df_apy['apy_7_day']=df_apy['apy_7_day'].map(lambda x :'%.2f%%'  %  (x*100),)
+# st.dataframe(df_apy, width=1200, height=500)
 
 
 time.sleep(60)
